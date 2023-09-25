@@ -3,28 +3,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def load_training_data():
-    # column_names = ['feature1', 'feature2', 'feature3', ..., 'gesture_name', 'gesture_id', 'candidate']
+def load_data(filepath: str):
+    """
+    Load the dataset from the given filepath.
+
+    :param filepath: str, file path of the dataset to load.
+    :return: pd.DataFrame, loaded data.
+    """
     feature_names = [f"feature_{i}" for i in range(1, 243)]  # 242 feature columns
-    data = pd.read_csv('datasets/train-final.csv', header=None, names=feature_names)
+    data = pd.read_csv(filepath, header=None, names=feature_names)
     data.rename(columns={
         data.columns[-2]: 'gesture name',
         data.columns[-1]: 'gesture ID'
-
     }, inplace=True)
     return data
 
-
-def load_test_data():
-    # Give the columns names
-    feature_names = [f"feature_{i}" for i in range(1, 243)]  # 242 feature columns
-    data = pd.read_csv('datasets/test-final.csv', header=None, names=feature_names)
-    data.rename(columns={
-        data.columns[-2]: 'gesture name',
-        data.columns[-1]: 'gesture ID'
-
-    }, inplace=True)
-    return data
 
 
 def check_missing_values(_input: pd.DataFrame):
@@ -49,15 +42,14 @@ def plot_boxplot(_input: pd.DataFrame, _name: str):
 
 
 if __name__ == '__main__':
-    # Load the training data
-    train_d = load_training_data()
-    # convert into dataFrame
-    train_data = pd.DataFrame(train_d)
+    # Load data
+    train_data = load_data('datasets/train-final.csv')
+    test_data = load_data('datasets/test-final.csv')
 
-    # load the test data
-    test_d = load_test_data()
-    # convert to dataFrame
-    test_data = pd.DataFrame(test_d)
+    # convert into dataFrame
+    train_data = pd.DataFrame(train_data)
+    test_data = pd.DataFrame(test_data)
+
 
     # Check for missing values
     print("Checking train_data")
