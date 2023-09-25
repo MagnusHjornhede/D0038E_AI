@@ -4,12 +4,7 @@ import seaborn as sns
 
 
 def load_data(filepath: str):
-    """
-    Load the dataset from the given filepath.
 
-    :param filepath: str, file path of the dataset to load.
-    :return: pd.DataFrame, loaded data.
-    """
     feature_names = [f"feature_{i}" for i in range(1, 243)]  # 242 feature columns
     data = pd.read_csv(filepath, header=None, names=feature_names)
     data.rename(columns={
@@ -49,7 +44,6 @@ if __name__ == '__main__':
     # convert into dataFrame
     train_data = pd.DataFrame(train_data)
     test_data = pd.DataFrame(test_data)
-
 
     # Check for missing values
     print("Checking train_data")
