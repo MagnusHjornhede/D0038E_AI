@@ -1,9 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 
-def load_data(filepath: str):
+def load_data(filepath: str) -> pd.DataFrame:
 
     feature_names = [f"feature_{i}" for i in range(1, 243)]  # 242 feature columns
     data = pd.read_csv(filepath, header=None, names=feature_names)
@@ -12,7 +13,6 @@ def load_data(filepath: str):
         data.columns[-1]: 'gesture ID'
     }, inplace=True)
     return data
-
 
 
 def check_missing_values(_input: pd.DataFrame):
@@ -71,8 +71,17 @@ if __name__ == '__main__':
     std_positions_data = X.iloc[:, 180:240]  # next 60 columns
 
     # Print out a plot
-    plot_boxplot(positions_data, 'positions data')
-    plot_boxplot(cosine_angles_data, 'cosine angles data')
-    plot_boxplot(mean_positions_data, 'mean positions data')
-    plot_boxplot(std_positions_data, 'std positions data')
+    #plot_boxplot(positions_data, 'positions data')
+    #plot_boxplot(cosine_angles_data, 'cosine angles data')
+    #plot_boxplot(mean_positions_data, 'mean positions data')
+    #plot_boxplot(std_positions_data, 'std positions data')
 
+    # Standardlization
+    first_60_features = train_data.iloc[:, :60]
+    scaler = MinMaxScaler()
+    normalized_first_60_features = scaler.fit_transform(first_60_features)
+    #scaler = StandardScaler()
+    #normalized_first_60_features = scaler.fit_transform(first_60_features)
+    train_data.iloc[:, :60] = normalized_first_60_features
+
+    plot_boxplot(train_data, "First 60 standardization")
