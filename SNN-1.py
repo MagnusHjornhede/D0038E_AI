@@ -90,17 +90,21 @@ if __name__ == '__main__':
     # Check final value for convergence
     print(f"Final membrane potential: {u} mV")
 
+
+    # ***********************
     # Code for Task 2
+    # ***********************
+
     I_syn = 50  # pA
     # Re-initializing the spiking detection setup
     found_spike = False  # Reset the flag for detecting spikes
     spiking_current = None  # Reset the spiking current value
     print("Start")
     # Corrected loop to find the spiking current
-    for I_syn in range(int(50 * 1e-12), 100000, 2):  # Search from 51 pA up to 1000 pA
+    for I_syn in range(50, 1000, 2):  # Search from 50 pA up to 1000 pA
         t = 0  # Reset time for each I_syn value
         u = u_rest  # Reset membrane potential for each simulation
-        # print(I_syn)
+        print(I_syn)
         while t <= 1:
             # Euler forward method for du/dt
             du_dt = (-(u - u_rest) + R * (I_syn * 1e-12)) / tau_m
@@ -109,13 +113,13 @@ if __name__ == '__main__':
             if u >= u_thres:  # Check for spike
                 spiking_current = I_syn  # Store the spiking current value
                 found_spike = True  # Set the flag to true
-                break  # Exit the inner loop if a spike is found
+                #break  # Exit the inner loop if a spike is found
 
             t += dt  # Increment time
 
         if found_spike:
             print("Found spike")
-            break  # Exit the outer loop if a spike has been found
+            #break  # Exit the outer loop if a spike has been found
 
     # Checking if spiking_current was found before proceeding with plotting
     if spiking_current is not None:
