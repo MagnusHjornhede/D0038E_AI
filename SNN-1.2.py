@@ -11,7 +11,6 @@ def rasterplot(ax, x, y, x_label, y_label):
     ax.scatter(x, y, marker='|')
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-
 if __name__ == '__main__':
     # plt.rcParams['figure.figsize'] = [10, 10]
     # Parameters for Tasks 1–5
@@ -70,12 +69,6 @@ for I_syn in range(50, 1000, 2):  # from 50 pA up to 1000 pA
         print(f"Found spike at: {spiking_current}pA")
 
         break  # Exit the outer loop if a spike has been found
-
-
-
-
-
-
 else:
     print("No spiking current found within the tested range.")
 # Plotting
